@@ -22,6 +22,26 @@ node -v
 npm -v
 ```
 
+### Installer Node.js sous macOS
+
+Si Node.js n'est pas encore installé, deux options :
+
+**Option A — avec [Homebrew](https://brew.sh/) (recommandé)**
+
+```bash
+# Installer Homebrew si besoin
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Installer Node.js (inclut npm)
+brew install node
+```
+
+**Option B — installeur officiel**
+
+Télécharger le paquet `.pkg` depuis [nodejs.org](https://nodejs.org/) (version LTS) et suivre l'assistant d'installation.
+
+> Astuce : pour gérer plusieurs versions de Node, installer [`nvm`](https://github.com/nvm-sh/nvm) (`brew install nvm`) puis `nvm install --lts`.
+
 ## Installation
 
 1. Cloner le dépôt :
