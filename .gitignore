@@ -8,5 +8,6 @@ next-env.d.ts
 .vercel
 npm-debug.log*
 
-# Document de présentation local (non versionné)
+# Documents de présentation locaux (non versionnés)
 presentation-teranga-cajou.html
+soutenance-teranga-cajou.html
