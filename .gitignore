@@ -7,3 +7,6 @@ next-env.d.ts
 .DS_Store
 .vercel
 npm-debug.log*
+
+# Document de présentation local (non versionné)
+presentation-teranga-cajou.html
