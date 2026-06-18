@@ -1,0 +1,288 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/*  Teranga Cajou — design tokens (issus du logo officiel)            */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Palette */
+  --color-brun: #5c3a21; /* chocolat/bois — titres, texte fort */
+  --color-brun-fonce: #3e2614; /* fond sections sombres, footer */
+  --color-orange: #e8821e; /* CAJOU — CTA, prix, accents */
+  --color-orange-vif: #f09a3e; /* hovers, dégradés */
+  --color-vert: #3e8e2e; /* tagline, badges 100% local, éco */
+  --color-vert-feuille: #6bbf45; /* accents secondaires */
+  --color-creme: #faf6ef; /* fond principal */
+  --color-ivoire: #f3ecdd; /* cartes, sections alternées */
+  --color-or: #c9a227; /* détails premium */
+  --color-rouge-pomme: #d9541e; /* rare, promos */
+
+  /* Typographies — injectées par next/font (variables CSS) */
+  --font-display: var(--font-fraunces), "Fraunces", Georgia, serif;
+  --font-body: var(--font-outfit), "Outfit", system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), "JetBrains Mono", monospace;
+
+  /* Rayons & ombres */
+  --radius-blob: 42% 58% 63% 37% / 41% 44% 56% 59%;
+  --shadow-terroir: 0 24px 60px -28px rgba(62, 38, 20, 0.45);
+  --shadow-soft: 0 12px 40px -22px rgba(62, 38, 20, 0.35);
+
+  /* Easing partagé avec GSAP */
+  --ease-terroir: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                              */
+/* ------------------------------------------------------------------ */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-creme);
+    color: var(--color-brun);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+    color: var(--color-brun);
+  }
+
+  ::selection {
+    background: var(--color-orange);
+    color: var(--color-creme);
+  }
+
+  /* Scrollbar discrète */
+  ::-webkit-scrollbar {
+    width: 11px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-ivoire);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-brun);
+    border: 3px solid var(--color-ivoire);
+    border-radius: 99px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Texture grain + utilitaires terroir                               */
+/* ------------------------------------------------------------------ */
+@layer utilities {
+  /* Grain léger sur fonds clairs/sombres */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .prix {
+    font-family: var(--font-mono);
+    font-feature-settings: "tnum" 1;
+    letter-spacing: -0.02em;
+  }
+
+  /* Dégradé chaleureux réutilisable */
+  .bg-terroir {
+    background-image:
+      radial-gradient(120% 120% at 0% 0%, rgba(232, 130, 30, 0.10), transparent 45%),
+      radial-gradient(120% 120% at 100% 100%, rgba(62, 142, 46, 0.10), transparent 45%);
+  }
+
+  .blob {
+    border-radius: var(--radius-blob);
+  }
+
+  /* Lien souligné animé */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1.5px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.4s var(--ease-terroir);
+  }
+  .link-underline:hover {
+    background-size: 100% 1.5px;
+  }
+
+  /* Reveals GSAP : l'état caché est posé en JS par useReveal (gsap.set),
+     ainsi un .reveal sans conteneur animé reste toujours visible. */
+  .reveal {
+    will-change: transform, opacity;
+  }
+
+  @keyframes tc-fade {
+    from {
+      opacity: 0;
+      transform: translateY(3px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Bandeau défilant */
+  .tc-marquee-track {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    animation: tc-marquee 32s linear infinite;
+  }
+  .tc-marquee:hover .tc-marquee-track {
+    animation-play-state: paused;
+  }
+  @keyframes tc-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tc-marquee-track {
+      animation: none;
+    }
+  }
+
+  /* Pastille de succès (confirmation, formulaires) */
+  .tc-check {
+    animation: tc-pop 0.6s var(--ease-terroir) both;
+  }
+  @keyframes tc-pop {
+    0% {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    60% {
+      transform: scale(1.12);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tc-check {
+      animation: none;
+    }
+  }
+}
+
+/* Boutons */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.95rem 1.7rem;
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.98rem;
+    letter-spacing: 0.005em;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+      transform 0.35s var(--ease-terroir),
+      box-shadow 0.35s var(--ease-terroir),
+      background-color 0.35s var(--ease-terroir),
+      color 0.35s var(--ease-terroir);
+    text-align: center;
+  }
+  .btn:active {
+    transform: translateY(1px) scale(0.99);
+  }
+
+  .btn-primary {
+    background-color: var(--color-orange);
+    color: #fff;
+    box-shadow: 0 14px 30px -14px rgba(232, 130, 30, 0.7);
+  }
+  .btn-primary:hover {
+    background-color: var(--color-orange-vif);
+    transform: translateY(-2px);
+    box-shadow: 0 20px 38px -14px rgba(232, 130, 30, 0.8);
+  }
+
+  .btn-dark {
+    background-color: var(--color-brun);
+    color: var(--color-creme);
+  }
+  .btn-dark:hover {
+    background-color: var(--color-brun-fonce);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    background-color: transparent;
+    color: var(--color-brun);
+    box-shadow: inset 0 0 0 1.5px rgba(92, 58, 33, 0.3);
+  }
+  .btn-ghost:hover {
+    box-shadow: inset 0 0 0 1.5px var(--color-brun);
+    background-color: rgba(92, 58, 33, 0.04);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.32rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .card-terroir {
+    background-color: #fff;
+    border: 1px solid rgba(92, 58, 33, 0.14);
+    border-radius: 1.6rem;
+    box-shadow: 0 18px 42px -26px rgba(62, 38, 20, 0.45);
+    transition:
+      transform 0.45s var(--ease-terroir),
+      box-shadow 0.45s var(--ease-terroir),
+      border-color 0.45s var(--ease-terroir);
+  }
+  .card-terroir:hover {
+    border-color: rgba(92, 58, 33, 0.22);
+  }
+}

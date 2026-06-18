@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teranga Cajou — Hero 1 · Éditorial Terroir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brun:#5C3A21; --brun-fonce:#3E2614; --orange:#E8821E; --orange-vif:#F09A3E;
+  --vert:#3E8E2E; --vert-feuille:#6BBF45; --creme:#FAF6EF; --ivoire:#F3ECDD;
+  --or:#C9A227; --rouge-pomme:#D9541E;
+
+  /* theme tokens (light) */
+  --bg:var(--creme); --bg-2:var(--ivoire); --ink:var(--brun-fonce);
+  --ink-soft:#7a5a3e; --line:rgba(92,58,33,.14); --card:#fff;
+  --accent:var(--orange); --leaf:var(--vert); --shadow:rgba(62,38,20,.16);
+  --grain:.05;
+}
+[data-theme="dark"]{
+  --bg:#241509; --bg-2:#2e1c0d; --ink:#F4E9D8; --ink-soft:#cbb295;
+  --line:rgba(244,233,216,.13); --card:#33200f;
+  --accent:var(--orange-vif); --leaf:var(--vert-feuille); --shadow:rgba(0,0,0,.5);
+  --grain:.07;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Outfit",sans-serif; background:var(--bg); color:var(--ink);
+  min-height:100vh; overflow-x:hidden; transition:background .6s ease,color .6s ease;
+  -webkit-font-smoothing:antialiased;
+}
+/* grain overlay */
+body::after{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:99; opacity:var(--grain);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply; transition:opacity .6s;
+}
+
+/* ── top bar ── */
+.bar{
+  position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center;
+  justify-content:space-between; padding:22px clamp(20px,5vw,64px);
+}
+.logo{font-family:"Fraunces",serif; font-weight:600; font-size:1.45rem; letter-spacing:-.02em; color:var(--ink)}
+.logo b{color:var(--accent); font-weight:800}
+.bar nav{display:flex; gap:30px; align-items:center}
+.bar nav a{color:var(--ink-soft); text-decoration:none; font-size:.9rem; font-weight:500; transition:color .25s}
+.bar nav a:hover{color:var(--accent)}
+@media(max-width:780px){.bar nav a:not(.toggle){display:none}}
+
+.toggle{
+  width:54px; height:30px; border-radius:30px; border:1px solid var(--line);
+  background:var(--bg-2); cursor:pointer; position:relative; flex:none; transition:background .4s;
+}
+.toggle::before{
+  content:"☀"; position:absolute; top:3px; left:3px; width:23px; height:23px; border-radius:50%;
+  background:var(--accent); color:#fff; display:grid; place-items:center; font-size:.7rem;
+  transition:transform .45s cubic-bezier(.7,-0.4,.3,1.4), content .4s;
+}
+[data-theme="dark"] .toggle::before{transform:translateX(24px); content:"☾"; background:var(--or)}
+
+/* ── hero ── */
+.hero{
+  position:relative; min-height:100vh; display:grid;
+  grid-template-columns:1.05fr .95fr; align-items:center;
+  padding:120px clamp(20px,5vw,64px) 60px; gap:40px; max-width:1500px; margin:0 auto;
+}
+@media(max-width:980px){.hero{grid-template-columns:1fr; padding-top:100px}}
+
+.eyebrow{
+  display:inline-flex; align-items:center; gap:10px; font-size:.78rem; font-weight:600;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--leaf); margin-bottom:26px;
+  opacity:0; animation:rise .8s .1s forwards;
+}
+.eyebrow::before{content:""; width:34px; height:1px; background:var(--leaf)}
+
+h1{
+  font-family:"Fraunces",serif; font-weight:300; line-height:.92;
+  font-size:clamp(3rem,8.2vw,7.2rem); letter-spacing:-.03em; color:var(--ink);
+}
+h1 .em{font-style:italic; font-weight:500; color:var(--accent)}
+h1 .word{display:inline-block; opacity:0; animation:rise .9s forwards}
+h1 .word:nth-child(1){animation-delay:.18s}
+h1 .word:nth-child(2){animation-delay:.30s}
+h1 .word:nth-child(3){animation-delay:.42s}
+h1 .word:nth-child(4){animation-delay:.54s}
+
+.lead{
+  margin:34px 0 40px; max-width:46ch; font-size:clamp(1rem,1.3vw,1.18rem); line-height:1.65;
+  color:var(--ink-soft); opacity:0; animation:rise .9s .66s forwards;
+}
+.lead b{color:var(--ink); font-weight:600}
+
+.cta{display:flex; gap:16px; flex-wrap:wrap; opacity:0; animation:rise .9s .78s forwards}
+.btn{
+  font-family:"Outfit",sans-serif; font-weight:600; font-size:.98rem; border-radius:50px;
+  padding:16px 30px; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center;
+  gap:10px; border:1px solid transparent; transition:transform .25s, box-shadow .25s, background .25s;
+}
+.btn-primary{background:var(--accent); color:#fff; box-shadow:0 12px 30px -10px var(--accent)}
+.btn-primary:hover{transform:translateY(-3px); box-shadow:0 20px 40px -12px var(--accent)}
+.btn-ghost{border-color:var(--line); color:var(--ink)}
+.btn-ghost:hover{border-color:var(--accent); color:var(--accent); transform:translateY(-3px)}
+.btn .arr{transition:transform .25s}
+.btn:hover .arr{transform:translate(4px,-2px)}
+
+/* trust strip */
+.trust{margin-top:54px; display:flex; gap:34px; flex-wrap:wrap; opacity:0; animation:rise .9s .9s forwards}
+.trust .it{display:flex; flex-direction:column; gap:2px}
+.trust .n{font-family:"JetBrains Mono",monospace; font-size:1.6rem; font-weight:600; color:var(--ink)}
+.trust .l{font-size:.74rem; letter-spacing:.05em; color:var(--ink-soft); text-transform:uppercase}
+.trust .sep{width:1px; background:var(--line)}
+
+/* ── visual side ── */
+.visual{position:relative; height:560px; display:grid; place-items:center}
+@media(max-width:980px){.visual{height:420px; order:-1}}
+
+.blob{
+  position:absolute; width:min(115%,560px); aspect-ratio:1; z-index:0;
+  filter:blur(2px); opacity:.9; animation:morph 14s ease-in-out infinite, float 9s ease-in-out infinite;
+}
+.disc{
+  position:relative; z-index:2; width:min(78%,400px); aspect-ratio:1; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, var(--card), var(--bg-2));
+  border:1px solid var(--line); box-shadow:0 50px 90px -40px var(--shadow), inset 0 2px 0 rgba(255,255,255,.3);
+  display:grid; place-items:center; animation:float 7s ease-in-out infinite;
+}
+.disc svg{width:62%; height:62%; overflow:visible}
+.ring{
+  position:absolute; z-index:1; width:min(96%,490px); aspect-ratio:1; border-radius:50%;
+  border:1px dashed var(--line); animation:spin 38s linear infinite;
+}
+.ring::before,.ring::after{
+  content:""; position:absolute; width:12px; height:12px; border-radius:50%; background:var(--accent);
+  top:-6px; left:50%; box-shadow:0 0 14px var(--accent);
+}
+.ring::after{background:var(--leaf); top:auto; bottom:-6px; box-shadow:0 0 14px var(--leaf)}
+
+/* floating price chips */
+.chip{
+  position:absolute; z-index:3; background:var(--card); border:1px solid var(--line);
+  border-radius:16px; padding:12px 16px; box-shadow:0 18px 36px -18px var(--shadow);
+  display:flex; align-items:center; gap:10px; animation:float 6s ease-in-out infinite;
+}
+.chip .dot{width:10px; height:10px; border-radius:50%}
+.chip .t{font-size:.72rem; color:var(--ink-soft); line-height:1.2}
+.chip .p{font-family:"JetBrains Mono",monospace; font-weight:600; color:var(--ink); font-size:.9rem}
+.chip.c1{top:6%; left:-4%; animation-delay:.4s}
+.chip.c2{bottom:10%; right:-6%; animation-delay:1.4s}
+.chip.c3{bottom:26%; left:-8%; animation-delay:.9s}
+@media(max-width:560px){.chip.c1{left:2%}.chip.c2{right:0}.chip.c3{display:none}}
+
+/* badge */
+.badge-eco{
+  position:absolute; z-index:4; top:50%; right:-2%; transform:translateY(-50%) rotate(0);
+  width:104px; height:104px; animation:spin 24s linear infinite;
+}
+.badge-eco text{font-family:"Outfit"; font-size:8.5px; letter-spacing:.22em; fill:var(--leaf); font-weight:600}
+.badge-eco circle{fill:none; stroke:var(--leaf); stroke-width:.8; opacity:.5}
+
+/* keyframes */
+@keyframes rise{from{opacity:0; transform:translateY(26px)}to{opacity:1; transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.badge-eco{transform-origin:center}
+@keyframes morph{
+  0%,100%{border-radius:42% 58% 63% 37%/47% 41% 59% 53%}
+  50%{border-radius:62% 38% 41% 59%/56% 63% 37% 44%}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}.eyebrow,.lead,.cta,.trust,h1 .word{opacity:1!important}}
+
+/* footer cue */
+.scroll-cue{
+  position:absolute; bottom:26px; left:50%; transform:translateX(-50%); z-index:20;
+  font-size:.7rem; letter-spacing:.25em; text-transform:uppercase; color:var(--ink-soft);
+  display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0; animation:rise 1s 1.2s forwards;
+}
+.scroll-cue .ln{width:1px; height:30px; background:var(--line); position:relative; overflow:hidden}
+.scroll-cue .ln::after{content:""; position:absolute; inset:0; background:var(--accent); animation:drop 2s ease-in-out infinite}
+@keyframes drop{0%{transform:translateY(-100%)}60%,100%{transform:translateY(100%)}}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="logo">Teranga<b>Cajou</b></div>
+  <nav>
+    <a href="#">Boutique</a>
+    <a href="#">Notre histoire</a>
+    <a href="#">B2B</a>
+    <button class="toggle" aria-label="Basculer thème" onclick="toggleTheme()"></button>
+  </nav>
+</header>
+
+<main class="hero">
+  <div class="copy">
+    <span class="eyebrow">100 % Casamance · Zéro déchet</span>
+    <h1>
+      <span class="word">De la</span> <span class="word">Terre</span><br>
+      <span class="word">au</span> <span class="word em">Clic.</span>
+    </h1>
+    <p class="lead">
+      Teranga Cajou transforme l'anacarde de Casamance en produits premium —
+      <b>snacks, vinaigre, viande végane, charbon écologique</b>. La majorité du cajou
+      africain part brute à l'export : nous inversons la logique, du planteur à votre panier.
+    </p>
+    <div class="cta">
+      <a href="#" class="btn btn-primary">Découvrir la boutique <span class="arr">→</span></a>
+      <a href="#" class="btn btn-ghost">Offre B2B</a>
+    </div>
+    <div class="trust">
+      <div class="it"><span class="n">55%</span><span class="l">du cajou mondial · Afrique</span></div>
+      <div class="sep"></div>
+      <div class="it"><span class="n">5</span><span class="l">gammes zéro déchet</span></div>
+      <div class="sep"></div>
+      <div class="it"><span class="n">24h</span><span class="l">délai de réponse</span></div>
+    </div>
+  </div>
+
+  <div class="visual" id="visual">
+    <svg class="blob" viewBox="0 0 200 200"><defs>
+      <radialGradient id="bg1" cx="35%" cy="30%">
+        <stop offset="0%" stop-color="var(--orange-vif)" stop-opacity=".55"/>
+        <stop offset="60%" stop-color="var(--vert-feuille)" stop-opacity=".30"/>
+        <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+      </radialGradient></defs>
+      <rect width="200" height="200" fill="url(#bg1)"/>
+    </svg>
+    <div class="ring"></div>
+    <div class="disc">
+      <!-- cashew apple + nut composition -->
+      <svg viewBox="0 0 200 200">
+        <!-- leaf -->
+        <path d="M40 70 C30 40 60 22 96 28 C80 50 64 64 40 70 Z" fill="var(--leaf)"/>
+        <path d="M40 70 C58 56 76 44 96 28" stroke="#fff" stroke-opacity=".4" stroke-width="1.5" fill="none"/>
+        <!-- cashew apple (pomme) -->
+        <path d="M104 40 C140 38 158 70 150 104 C144 132 118 150 100 148 C80 146 70 122 74 96 C78 64 84 42 104 40 Z"
+              fill="var(--accent)"/>
+        <path d="M104 40 C140 38 158 70 150 104 C144 132 118 150 100 148"
+              fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="2"/>
+        <ellipse cx="120" cy="72" rx="14" ry="20" fill="#fff" opacity=".22"/>
+        <!-- cashew nut (noix) -->
+        <path d="M96 150 C70 156 58 138 70 124 C80 112 104 116 112 132 C118 144 110 147 96 150 Z"
+              fill="var(--brun)"/>
+        <path d="M82 130 C90 126 102 128 108 138" stroke="var(--or)" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <svg class="badge-eco" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="40"/>
+      <defs><path id="circ" d="M50 50 m-32 0 a32 32 0 1 1 64 0 a32 32 0 1 1 -64 0"/></defs>
+      <text><textPath href="#circ">· 100% CASAMANCE · ZÉRO DÉCHET </textPath></text>
+    </svg>
+
+    <div class="chip c1"><span class="dot" style="background:var(--accent)"></span>
+      <div><div class="t">Snacks Cajou</div><div class="p">2 500 FCFA</div></div></div>
+    <div class="chip c2"><span class="dot" style="background:var(--leaf)"></span>
+      <div><div class="t">Vinaigre de cajou</div><div class="p">3 500 FCFA</div></div></div>
+    <div class="chip c3"><span class="dot" style="background:var(--or)"></span>
+      <div><div class="t">Charbon écolo</div><div class="p">1 800 FCFA</div></div></div>
+  </div>
+</main>
+
+<div class="scroll-cue">Défiler <span class="ln"></span></div>
+
+<script>
+function toggleTheme(){
+  const r=document.documentElement;
+  r.dataset.theme = r.dataset.theme==='dark' ? 'light' : 'dark';
+}
+// light parallax on the visual
+const v=document.getElementById('visual');
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+  addEventListener('mousemove',e=>{
+    const x=(e.clientX/innerWidth-.5), y=(e.clientY/innerHeight-.5);
+    v.style.transform=`translate(${x*22}px,${y*22}px)`;
+  });
+}
+</script>
+</body>
+</html>

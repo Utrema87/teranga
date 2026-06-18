@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teranga Cajou — Hero corporate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brun:#5C3A21; --brun-fonce:#3E2614; --orange:#E8821E; --orange-vif:#F09A3E;
+  --vert:#3E8E2E; --creme:#FAF6EF; --ivoire:#F3ECDD; --or:#C9A227;
+
+  /* light theme */
+  --bg:#FBF8F2; --surface:#FFFFFF; --ink:#2A1B0E; --ink-2:#6F5840;
+  --line:rgba(42,27,14,.12); --accent:#C56A12; --accent-soft:#FBEFE0;
+}
+[data-theme="dark"]{
+  --bg:#191207; --surface:#211608; --ink:#F4ECDD; --ink-2:#B6A488;
+  --line:rgba(244,236,221,.12); --accent:#F0A14A; --accent-soft:rgba(240,161,74,.10);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Outfit",sans-serif; background:var(--bg); color:var(--ink);
+  -webkit-font-smoothing:antialiased; transition:background .5s,color .5s;
+}
+.wrap{max-width:1240px; margin:0 auto; padding:0 clamp(20px,4vw,48px)}
+
+/* ── header ── */
+header{position:sticky; top:0; z-index:50; background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(10px); border-bottom:1px solid var(--line)}
+.nav{display:flex; align-items:center; justify-content:space-between; height:74px}
+.brand{font-family:"Fraunces",serif; font-weight:600; font-size:1.3rem; letter-spacing:-.01em; color:var(--ink)}
+.brand b{color:var(--accent); font-weight:600}
+.nav ul{display:flex; gap:34px; list-style:none}
+.nav a{color:var(--ink-2); text-decoration:none; font-size:.92rem; font-weight:400; transition:color .2s}
+.nav a:hover{color:var(--ink)}
+.nav .right{display:flex; gap:18px; align-items:center}
+.theme{width:38px;height:38px;border:1px solid var(--line);background:transparent;border-radius:8px;cursor:pointer;
+  color:var(--ink-2);display:grid;place-items:center;transition:border-color .2s,color .2s}
+.theme:hover{border-color:var(--accent);color:var(--accent)}
+.theme svg{width:17px;height:17px}.theme .moon{display:none}
+[data-theme="dark"] .theme .sun{display:none}[data-theme="dark"] .theme .moon{display:block}
+.nav-cta{font-size:.9rem;font-weight:500;color:var(--ink);text-decoration:none;padding:9px 18px;
+  border:1px solid var(--line);border-radius:8px;transition:border-color .2s,background .2s}
+.nav-cta:hover{border-color:var(--accent)}
+@media(max-width:820px){.nav ul{display:none}}
+
+/* ── hero ── */
+.hero{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(32px,5vw,72px); align-items:center;
+  padding:clamp(56px,9vh,110px) 0 clamp(48px,7vh,90px)}
+@media(max-width:920px){.hero{grid-template-columns:1fr; padding-top:48px}}
+
+.eyebrow{display:inline-flex; align-items:center; gap:10px; font-size:.78rem; font-weight:500;
+  letter-spacing:.04em; color:var(--ink-2); padding:7px 14px; border:1px solid var(--line);
+  border-radius:40px; margin-bottom:30px}
+.eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--vert)}
+
+h1{font-family:"Fraunces",serif; font-weight:500; font-size:clamp(2.6rem,5.4vw,4.4rem);
+  line-height:1.04; letter-spacing:-.02em; color:var(--ink); margin-bottom:26px}
+h1 .accent{color:var(--accent)}
+.lead{max-width:48ch; font-size:clamp(1.02rem,1.25vw,1.15rem); line-height:1.65; color:var(--ink-2); margin-bottom:38px}
+
+.actions{display:flex; gap:14px; flex-wrap:wrap; align-items:center}
+.btn{font-family:"Outfit"; font-weight:500; font-size:.98rem; padding:14px 26px; border-radius:9px;
+  text-decoration:none; display:inline-flex; align-items:center; gap:9px; transition:all .2s; border:1px solid transparent}
+.btn-primary{background:var(--accent); color:#fff}
+.btn-primary:hover{filter:brightness(1.06); transform:translateY(-1px)}
+.btn-text{color:var(--ink); border-color:var(--line); background:transparent}
+.btn-text:hover{border-color:var(--accent); color:var(--accent)}
+.btn svg{width:15px;height:15px}
+
+/* trust row */
+.trust{display:flex; gap:0; margin-top:54px; border-top:1px solid var(--line); padding-top:26px}
+.trust .item{padding-right:clamp(20px,3vw,40px); margin-right:clamp(20px,3vw,40px); border-right:1px solid var(--line)}
+.trust .item:last-child{border-right:none}
+.trust .n{font-family:"Fraunces",serif; font-weight:500; font-size:1.7rem; color:var(--ink); line-height:1}
+.trust .l{font-size:.78rem; color:var(--ink-2); margin-top:6px; max-width:14ch}
+
+/* ── visual ── */
+.media{position:relative}
+.frame{position:relative; border:1px solid var(--line); border-radius:16px; background:var(--surface);
+  padding:26px; overflow:hidden; box-shadow:0 24px 60px -40px rgba(42,27,14,.5)}
+.frame::before{content:""; position:absolute; inset:0; background:
+  linear-gradient(var(--line) 1px,transparent 1px) 0 0/100% 34px,
+  radial-gradient(circle at 80% 0%, var(--accent-soft), transparent 55%);
+  opacity:.5; pointer-events:none}
+.frame img{position:relative; z-index:1; width:100%; height:auto; display:block; border-radius:8px;
+  mix-blend-mode:multiply}
+[data-theme="dark"] .frame img{mix-blend-mode:normal; filter:none}
+.cap{position:relative; z-index:2; display:flex; justify-content:space-between; align-items:center;
+  margin-top:20px; padding-top:18px; border-top:1px solid var(--line)}
+.cap .lab{font-family:"JetBrains Mono",monospace; font-size:.72rem; letter-spacing:.04em; color:var(--ink-2)}
+.cap .org{font-size:.82rem; color:var(--ink); font-weight:500}
+
+/* floating fact — single, restrained */
+.fact{position:absolute; left:-18px; bottom:48px; z-index:3; background:var(--surface);
+  border:1px solid var(--line); border-radius:12px; padding:14px 18px; box-shadow:0 18px 40px -24px rgba(42,27,14,.5)}
+.fact .v{font-family:"Fraunces",serif; font-weight:500; font-size:1.4rem; color:var(--accent); line-height:1}
+.fact .t{font-size:.74rem; color:var(--ink-2); margin-top:3px}
+@media(max-width:520px){.fact{left:8px; bottom:12px}}
+
+/* logo strip */
+.logos{border-top:1px solid var(--line); padding:26px 0 40px}
+.logos p{font-size:.74rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-2); margin-bottom:16px}
+.logos .row{display:flex; flex-wrap:wrap; gap:clamp(24px,5vw,56px); align-items:center}
+.logos .row span{font-family:"Fraunces",serif; font-weight:500; font-size:1.05rem; color:var(--ink-2); opacity:.75}
+
+/* entrance */
+.reveal{opacity:0; transform:translateY(16px); animation:rise .7s cubic-bezier(.2,.7,.3,1) forwards}
+.reveal.d1{animation-delay:.05s}.reveal.d2{animation-delay:.13s}.reveal.d3{animation-delay:.21s}
+.reveal.d4{animation-delay:.29s}.reveal.d5{animation-delay:.37s}.reveal.d6{animation-delay:.45s}
+@keyframes rise{to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.reveal{animation:none;opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <div class="brand">Teranga<b>Cajou</b></div>
+    <ul>
+      <li><a href="#">Produits</a></li>
+      <li><a href="#">Notre démarche</a></li>
+      <li><a href="#">Professionnels</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="right">
+      <button class="theme" aria-label="Changer de thème" onclick="toggleTheme()">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M2 12h2.5M19.5 12H22M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <a href="#" class="nav-cta">Boutique</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap hero">
+  <section class="copy">
+    <span class="eyebrow reveal d1"><span class="dot"></span>Anacarde de Casamance · transformation locale</span>
+    <h1 class="reveal d2">De la terre <br>au clic, <span class="accent">sans rien perdre.</span></h1>
+    <p class="lead reveal d3">Teranga Cajou transforme localement la noix, la pomme et la coque du cajou
+      de Casamance en cinq gammes premium. Une filière courte, maîtrisée du planteur à la livraison,
+      qui garde la valeur au Sénégal.</p>
+    <div class="actions reveal d4">
+      <a href="#" class="btn btn-primary">Découvrir les produits
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a href="#" class="btn btn-text">Demander un devis B2B</a>
+    </div>
+    <div class="trust reveal d5">
+      <div class="item"><div class="n">5</div><div class="l">gammes zéro déchet</div></div>
+      <div class="item"><div class="n">100%</div><div class="l">origine Casamance</div></div>
+      <div class="item"><div class="n">24&nbsp;h</div><div class="l">réponse aux devis</div></div>
+    </div>
+  </section>
+
+  <section class="media reveal d6">
+    <div class="frame">
+      <img src="../hero_section-removebg-preview.png" alt="Gamme de produits Teranga Cajou : snacks, vinaigre, viande végane, charbon écologique et amandes premium">
+      <div class="cap">
+        <span class="lab">// Gamme 2026</span>
+        <span class="org">Ziguinchor · Sédhiou · Kolda</span>
+      </div>
+    </div>
+    <div class="fact">
+      <div class="v">55%</div>
+      <div class="t">du cajou mondial<br>vient d'Afrique</div>
+    </div>
+  </section>
+</main>
+
+<div class="wrap logos">
+  <p>Une filière responsable, des produits pour</p>
+  <div class="row">
+    <span>Épiceries fines</span>
+    <span>Restaurants</span>
+    <span>Hôtels &amp; lounges</span>
+    <span>Distributeurs</span>
+    <span>Export</span>
+  </div>
+</div>
+
+<script>
+function toggleTheme(){
+  const r=document.documentElement;
+  r.dataset.theme = r.dataset.theme==='dark' ? 'light' : 'dark';
+}
+</script>
+</body>
+</html>
